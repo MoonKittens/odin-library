@@ -8,6 +8,11 @@ function book(title, author, pages, read){
     this.read = read;
 }
 
+book.prototype.toggleStatus = function(){
+    this.read = !this.read;
+}
+
+
 function addBooktoLibrary(){
     const title = document.querySelector("#title").value
     const author = document.querySelector("#author").value
@@ -45,7 +50,23 @@ function showBooks(){
         bookstatus = document.createElement('p');
         bookstatus.textContent = `${libraryBook.read}`;
         card.appendChild(bookstatus);
+
+
+        rmbtn = document.createElement('button');
+        rmbtn.textContent = "remove";
+        rmbtn.classList.add('rmbtn');
+        rmbtn.setAttribute('id', i);
+        card.appendChild(rmbtn);
+
+        rmbtn.addEventListener('click', function(e){
+            removeitem(e.target.id);
+        })
     }
+}
+
+function removeitem(id){
+    myLibrary.splice(id, 1);
+    showBooks();
 }
 
 newBookBtn = document.querySelector("#new-book-btn");
