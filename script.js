@@ -8,8 +8,9 @@ function book(title, author, pages, read){
     this.read = read;
 }
 
-book.prototype.toggleStatus = function(){
-    this.read = !this.read;
+book.prototype.toggleStatus = function(statusid){
+    myLibrary[statusid].read = !myLibrary[statusid].read;
+    showBooks();
 }
 
 
@@ -49,6 +50,10 @@ function showBooks(){
 
         bookstatus = document.createElement('p');
         bookstatus.textContent = `${libraryBook.read}`;
+        bookstatus.setAttribute('id', i);
+        bookstatus.addEventListener('click', (e)=>{
+            libraryBook.toggleStatus(e.target.id);
+        })
         card.appendChild(bookstatus);
 
 
@@ -58,9 +63,10 @@ function showBooks(){
         rmbtn.setAttribute('id', i);
         card.appendChild(rmbtn);
 
-        rmbtn.addEventListener('click', function(e){
+        rmbtn.addEventListener('click', (e)=> {
             removeitem(e.target.id);
         })
+
     }
 }
 
